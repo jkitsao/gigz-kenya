@@ -14,6 +14,7 @@ const formatAuthUser = (user) => ({
 export default function useFirebaseAuth() {
     const [authUser, setAuthUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(undefined)
     const router = useRouter()
     const authStateChanged = async (authState) => {
         if (!authState) {
@@ -36,6 +37,7 @@ export default function useFirebaseAuth() {
                 role: 'admin'
             }
             await addNewUser(userObj)
+            //    setCurrentUser(userbase)
         }
         setLoading(false);
     };

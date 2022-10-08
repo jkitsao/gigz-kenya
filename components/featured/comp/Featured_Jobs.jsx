@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Link from 'next/link'
 function Featured_Jobs() {
     return (
         <section className='flex justify-between p-4  my-2 shadow-lg w-full cursor-pointer border rounded-lg border-gray-800 hover:border-blue-700  transition-all duration-300 ease-in-out'>
@@ -9,7 +9,11 @@ function Featured_Jobs() {
                 </div>
                 <div className='sm:px-3'>
                     <p className='text-sm font-medium'>Flowbite</p>
-                    <p className='text-base font-semibold text-white hover:underline hover:text-blue-300 transition-all duration-200'>Frontend Engineer</p>
+                    <p className='text-base font-semibold text-white hover:underline hover:text-blue-300 transition-all duration-200'>
+                        <Link href={`/jobs/frontend`}>
+                            Frontend Engineer
+                        </Link>
+                    </p>
                     <div className='flex  items-center py-1'>
                         <p className='text-xs lg:text-sm'>Full-time</p>
                         <p className='text-xs lg:text-sm text-blue-400 hover:underline transition-all duration-150 px-2'>

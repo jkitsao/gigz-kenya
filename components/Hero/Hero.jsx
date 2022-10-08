@@ -3,7 +3,7 @@ import React from 'react'
 function Hero() {
     return (
         <>
-            <div className='p-2 py-5 mt-8 lg:py-24 text-center lg:w-2/3 lg:mx-auto   shadow-xl'>
+            <div className='p-2 py-5 mt-8 lg:py-24 text-center lg:w-2/3 lg:mx-auto'>
                 <h1 className='font-bold text-white text-4xl  lg:text-5xl '>
                     Find Tech Related Jobs in Kenya
                 </h1>

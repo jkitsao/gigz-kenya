@@ -6,6 +6,7 @@ export default async function handler(req, res) {
         // Process a POST request
         const { user } = req.body
         // console.log({ user })
+        if (!user) return res.status(400).json({ error: true, message: 'bad request' })
         let result = await addNewUserToCollection(user)
         res.status(200).json({ result })
     } else {

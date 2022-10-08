@@ -1,10 +1,10 @@
 import { Schema, model, models, SchemaTypes, trusted } from 'mongoose';
 const jobSchema = new Schema({
-    title: {
+    position: {
         type: String,
         required: true
     }, // String is shorthand for {type: String}
-    author: { type: SchemaTypes.ObjectId, ref: 'User', required: true },
+    author: { type: SchemaTypes.ObjectId, ref: 'User' },
     slug: {
         type: String,
         required: true,
@@ -27,6 +27,11 @@ const jobSchema = new Schema({
     },
     salary: {
         type: String
+    },
+    published: {
+        default: false,
+        type: Boolean,
+        required: true
     }
 
 
