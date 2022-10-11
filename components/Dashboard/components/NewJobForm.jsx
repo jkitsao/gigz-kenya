@@ -4,6 +4,7 @@ import { useForm } from '@mantine/form';
 import RichTextEditor from '../../Editor';
 import { isValidUrl } from '../../../utils/helpers/validations';
 import LogoUpload from './LogoUpload';
+import { useAxiosPost } from '../../../hooks/useAxiosPost';
 //multi select data
 const data = [
     { value: 'react', label: 'React' },
@@ -18,8 +19,9 @@ const data = [
 // const category_data =
 //component starts here  
 function NewJobForm() {
-    // const [file, setFile] = useState(null)
-    // const [preview, setPreview] = useState(null)
+    const [file, setFile] = useState(null)
+    const [preview, setPreview] = useState(null)
+    const postData = useAxiosPost()
     const form = useForm({
         initialValues: {
             position: '',
@@ -32,7 +34,7 @@ function NewJobForm() {
             invoice_email: '',
             company: {
                 name: '',
-                // logo: file,
+                logo: undefined,
                 twitter: '',
             }
         },
@@ -48,15 +50,26 @@ function NewJobForm() {
             }
         },
     });
+    // custom submit handler
+    const handlesubmit = async (e) => {
+        e.preventDefault()
+        console.table(form.values)
+        const values = form.values
+        try {
+            postData('/api/jobs', values)
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
     return (
-        <div className='shadow-lg  py-8 lg:w-5/6 lg:mx-auto border border-gray-700 rounded-md'>
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
-                {/* <section className='p-3'>
+        <div className='shadow-lg  py-8 mx-4 sm:mx-auto sm:w-5/6  lg:mx-auto border border-blue-900 rounded-md'>
+            <form onSubmit={handlesubmit}>
+                <section className='p-3'>
                     <div className='lg:w-5/6 lg:mx-auto'>
-                        <LogoUpload file={file} setFile={setFile} preview={preview} setPreview={setPreview} />
+                        <LogoUpload file={file} setFile={setFile} preview={preview} setPreview={setPreview} form={form} />
                     </div>
-                </section> */}
-
+                </section>
                 <section className='lg:flex flex-wrap justify-center'>
                     <div className='lg:w-2/5 m-2'>
                         <TextInput
@@ -143,12 +156,14 @@ function NewJobForm() {
                         />
                     </div>
                 </section>
-                <section>
-                    <button type='submit'
-                        className='px-8 py-3 bg-green-700'
-                    >
-                        submit
-                    </button>
+                <section className='p-3 lg:p-0 sticky bottom-0'>
+                    <div className='lg:w-5/6 lg:mx-auto '>
+                        <button type='submit'
+                            className='px-8 py-6 w-full bg-gray-900 hover:bg-gray-800 active:border-blue-100 active:bg-blue-800 transition-all duration-200 border rounded-xl border-blue-800 text-white font-semibold'
+                        >
+                            Submit Job
+                        </button>
+                    </div>
                 </section>
             </form>
         </div>

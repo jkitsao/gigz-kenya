@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import { FileButton, Button, Group, Text, Avatar } from '@mantine/core';
-function LogoUpload({ file, setFile, preview, setPreview }) {
+function LogoUpload({ file, setFile, preview, setPreview, form }) {
     useEffect(() => {
-        if (file) return setPreview(URL.createObjectURL(file));
+        if (file) {
+            setPreview(URL.createObjectURL(file));
+            form.setFieldValue('company.logo', file);
+        }
     }, [file])
     return (
         <>
@@ -17,7 +20,7 @@ function LogoUpload({ file, setFile, preview, setPreview }) {
                             className=' cursor-pointer'
                         />
                     )}
-
+                    {/* {...form.getInputProps('company.logo')} */}
                 </FileButton>
             </Group>
             {file && (

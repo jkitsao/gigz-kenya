@@ -8,15 +8,17 @@ const jobSchema = new Schema({
     slug: {
         type: String,
         required: true,
-        lowercase: trusted,
+        lowercase: true,
     },
     description: {
         type: String,
         required: true
     },
     company: {
-        type: SchemaTypes.ObjectId,
-        ref: 'Company'
+        // type: SchemaTypes.ObjectId,
+        // ref: 'Company'
+        type: Object,
+        required: true
     },
     location: {
         type: String
@@ -26,6 +28,19 @@ const jobSchema = new Schema({
         required: true
     },
     salary: {
+        type: String
+    },
+    apply_url: {
+        type: String,
+        required: true
+    },
+    apply_email: {
+        type: String,
+    },
+    keywords: {
+        type: Array
+    },
+    invoice_email: {
         type: String
     },
     published: {
