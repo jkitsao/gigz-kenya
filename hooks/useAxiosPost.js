@@ -5,22 +5,22 @@ export const useAxiosPost = () => {
     const [error, setError] = useState("");
     const [loaded, setLoaded] = useState(false);
 
-    const postData = (url, payload) => {
-        (async () => {
-            try {
-                const response = await axios.post(
-                    url,
-                    payload
-                );
-                setData(response.data);
-                return response.data
-            } catch (error) {
-                setError(error.message);
-                console.error(error)
-            } finally {
-                setLoaded(true);
-            }
-        })();
+    const postData = async (url, payload) => {
+        // (async () => {
+        try {
+            const response = await axios.post(
+                url,
+                payload
+            );
+            setData(response.data);
+            return response.data
+        } catch (error) {
+            setError(error.message);
+            console.error(error)
+        } finally {
+            setLoaded(true);
+        }
+        // })();
     }
 
 

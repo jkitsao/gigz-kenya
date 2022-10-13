@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { TextInput, MultiSelect, Select, NativeSelect } from '@mantine/core';
+import { TextInput, MultiSelect, Select, NativeSelect, LoadingOverlay } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import RichTextEditor from '../../Editor';
 import { isValidUrl } from '../../../utils/helpers/validations';
 import LogoUpload from './LogoUpload';
 import { useAxiosPost } from '../../../hooks/useAxiosPost';
+import { useRouter } from 'next/router'
+import useProxyAuth from '../../../hooks/useProxyAuth';
 //multi select data
 const data = [
     { value: 'react', label: 'React' },
@@ -21,8 +23,12 @@ const data = [
 function NewJobForm() {
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
+    const [visible, setVisible] = useState(false);
+    const { snap } = useProxyAuth()
     const postData = useAxiosPost()
+    const router = useRouter()
     const form = useForm({
+        clearInputErrorOnChange: false,
         initialValues: {
             position: '',
             category: '',
@@ -40,7 +46,7 @@ function NewJobForm() {
         },
 
         validate: {
-            apply_email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Enter a valid Email'),
+            // apply_email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Enter a valid Email'),
             apply_url: (value) => (isValidUrl(value) ? null : 'Enter a valid URL '),
             position: (value) => value.length < 2 ? 'Please provide the Job title' : null,
             invoice_email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
@@ -53,18 +59,28 @@ function NewJobForm() {
     // custom submit handler
     const handlesubmit = async (e) => {
         e.preventDefault()
-        console.table(form.values)
+        if (!form.isValid()) return form.validate();
         const values = form.values
+        setVisible(true)
         try {
-            postData('/api/jobs', values)
+            let res = await postData('/api/jobs', values)
+            setVisible(false)
+            await router.push(`/jobs/${res.data.result.slug}`)
+
         }
         catch (error) {
             console.error(error)
+            setVisible(false)
+
         }
     }
     return (
-        <div className='shadow-lg  py-8 mx-4 sm:mx-auto sm:w-5/6  lg:mx-auto border border-blue-900 rounded-md'>
-            <form onSubmit={handlesubmit}>
+        <div className='shadow-lg  py-8 mx-4 sm:mx-auto sm:w-5/6  lg:mx-auto border border-blue-900 rounded-md relative'>
+            <LoadingOverlay visible={visible} overlayBlur={2} loaderProps={{ size: 'lg', color: 'blue', variant: 'bars' }} />
+            <form onSubmit={(e) => handlesubmit(e)}>
+                {
+                    JSON.stringify(snap)
+                }
                 <section className='p-3'>
                     <div className='lg:w-5/6 lg:mx-auto'>
                         <LogoUpload file={file} setFile={setFile} preview={preview} setPreview={setPreview} form={form} />

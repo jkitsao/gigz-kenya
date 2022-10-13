@@ -8,12 +8,14 @@ import { useAuth } from '../../context/AuthUserContext'
 function Dashboard() {
     const { authUser } = useAuth()
     return (
-        <Protect>
+        // <Protect>
+        <>
             <User />
             <Container>
                 <Feed />
             </Container>
-        </Protect>
+        </>
+        // </Protect>
     )
 }
 
