@@ -11,8 +11,7 @@ const formatAuthUser = (user) => ({
 });
 
 const state = proxy({ authUser: null })
-//
-// declare state
+
 function useProxyAuth() {
     useEffect(() => {
         firebase.auth().onAuthStateChanged(async (user) => {
