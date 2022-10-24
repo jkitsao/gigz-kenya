@@ -10,16 +10,21 @@ function Job() {
     const { data, loading, error } = useAxiosGet(`/api/jobs/${slug}`)
     return (
         <Landing_page>
-            <div className='text-center text-sm p-8 relative h-screen'>
+            <div className='text-sm p-3 relative h-screen'>
                 <LoadingOverlay visible={loading} overlayBlur={2} loaderProps={{ size: 'lg', color: 'blue', variant: 'bars' }} />
                 {/* {JSON.stringify(data)} */}
                 <section >
-                    <div className='p-5'>
-                        <h3 className='text-2xl font-semibold text-center'>
+                    <div className='lg:w-1/2 lg:mx-auto'>
+                        <h3 className='text-3xl font-bold text-yellow-500'>
                             {data?.result?.position}
                         </h3>
                     </div>
-                    <div className='lg:w-1/2 mx-auto'>
+                    <div className='lg:w-1/2 lg:mx-auto p-3 lg:p-5  bg-gray-900 my-10'>
+                        <div>
+                            <h3 className='text-3xl font-bold text-center text-blue-400'>
+                                Job Description
+                            </h3>
+                        </div>
                         <TypographyStylesProvider>
                             <div dangerouslySetInnerHTML={{ __html: data?.result?.description }} />
                         </TypographyStylesProvider>

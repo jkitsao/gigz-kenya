@@ -11,10 +11,10 @@ function Jobs() {
         <Landing_page>
             <div className='relative h-screen'>
                 <LoadingOverlay visible={loading} overlayBlur={2} loaderProps={{ size: 'lg', color: 'blue' }} />
-                <section className='p-4 lg:w-3/5 lg:mx-auto'>
+                <section className='p-2 lg:p-4 lg:w-3/5 lg:mx-auto'>
                     {
                         data && data.result.map((job, index) => (
-                            <div className='px-2' key={index}>
+                            <div className='px-1' key={index}>
                                 <JobComp job={job} />
                             </div >
                         ))

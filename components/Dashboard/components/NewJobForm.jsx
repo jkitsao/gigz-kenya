@@ -75,12 +75,12 @@ function NewJobForm() {
         }
     }
     return (
-        <div className='shadow-lg  py-8 mx-4 sm:mx-auto sm:w-5/6  lg:mx-auto border border-blue-900 rounded-md relative'>
+        <div className='shadow-lg  py-8 mx-4 sm:mx-auto sm:w-5/6  lg:mx-auto  bg-gray-900 rounded-md relative'>
             <LoadingOverlay visible={visible} overlayBlur={2} loaderProps={{ size: 'lg', color: 'blue', variant: 'bars' }} />
             <form onSubmit={(e) => handlesubmit(e)}>
-                {
+                {/* {
                     JSON.stringify(snap)
-                }
+                } */}
                 <section className='p-3'>
                     <div className='lg:w-5/6 lg:mx-auto'>
                         <LogoUpload file={file} setFile={setFile} preview={preview} setPreview={setPreview} form={form} />
