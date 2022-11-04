@@ -16,7 +16,7 @@ function Jobs() {
                         data && data.result.map((job, index) => (
                             <div className='px-1' key={index}>
                                 <JobComp job={job} />
-                            </div >
+                            </div>
                         ))
                     }
                 </section>
